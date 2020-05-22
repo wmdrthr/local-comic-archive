@@ -53,12 +53,25 @@ class ComicPipeline():
 
         if tag > 190000:
             subdir = str(tag)[:4]
+        elif 'no_subdirs' in spider.options:
+            subdir = ''
         else:
             subdir = '{:04d}'.format(100 * (tag // 100))
 
         images = []
-        for image in item['files']:
+        for index, image in enumerate(item['files']):
+            metadata = {}
             image_file_path = os.path.join(self.files_store, image['path'])
+
+            filename = os.path.basename(urlparse(image['url']).path)
+            if (str(tag) not in filename or 'rename_images' in spider.options) and\
+               'dont_rename_images' not in spider.options:
+                metadata['X-original-filename'] = filename
+                extension = os.path.splitext(filename)[1]
+                if len(item['files']) > 1:
+                    filename = str(tag) + string.ascii_lowercase[index] + extension
+                else:
+                    filename = str(tag) + extension
 
             filename = os.path.basename(urlparse(image['url']).path)
             mimetype = mimetypes.guess_type(filename)[0]
