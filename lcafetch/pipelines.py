@@ -1,11 +1,12 @@
 import os
 import json
-import mimetypes
 import string
 from urllib.parse import urlparse
 from datetime import datetime
 
 import scrapy
+from sqlalchemy import create_engine, Table, MetaData, select
+from PIL import Image
 
 class ComicValidator():
 
@@ -26,19 +27,40 @@ class ComicValidator():
             for key,val in item.items():
                 item[key] = str(val)
             spider.logger.error(f'Dropping item: {json.dumps(item)}')
-            raise scrapy.exceptions.DropItem(f'Validation Failure: {ae.args[0]}')
+            raise # we want to fail immediately when we find an invalid item
 
 class ComicPipeline():
 
-
-    def __init__(self, files_store):
+    def __init__(self, db_engine, basedir, files_store):
+        self.basedir = basedir
         self.files_store = files_store
+
+        self.engine = db_engine
+        self._initialize_database(self.engine)
 
     @classmethod
     def from_crawler(cls, crawler):
+
         return cls(
+            db_engine = create_engine(crawler.settings.get('DATABASE_URL')),
+            basedir   = crawler.settings.get('BASEDIR'),
             files_store  = crawler.settings.get('FILES_STORE'),
         )
+
+    def _initialize_database(self, engine):
+
+        metadata = MetaData(bind=engine)
+
+        self.comicids = {}
+        with engine.connect() as connection:
+            result = connection.execute('SELECT * FROM comics')
+            for row in result:
+                self.comicids[row['nickname']] = row['id']
+
+        self.archive = Table('archive', metadata, autoload=True)
+        self.images = Table('images', metadata, autoload=True)
+        self.titles = Table('titles', metadata, autoload=True)
+        self.annotations = Table('annotations', metadata, autoload=True)
 
     def validate(self, item):
 
@@ -60,45 +82,65 @@ class ComicPipeline():
 
         images = []
         for index, image in enumerate(item['files']):
-            metadata = {}
-            image_file_path = os.path.join(self.files_store, image['path'])
+            image_data = {}
 
+            image_file_path = os.path.join(self.files_store, image['path'])
             filename = os.path.basename(urlparse(image['url']).path)
+
+            with open(image_file_path, 'rb') as f:
+                with Image.open(f) as img:
+                    image_data['width'], image_data['height'] = img.size
+
             if (str(tag) not in filename or 'rename_images' in spider.options) and\
                'dont_rename_images' not in spider.options:
-                metadata['X-original-filename'] = filename
+
+                image_data['original_filename'] = filename
                 extension = os.path.splitext(filename)[1]
                 if len(item['files']) > 1:
                     filename = str(tag) + string.ascii_lowercase[index] + extension
                 else:
                     filename = str(tag) + extension
 
-            filename = os.path.basename(urlparse(image['url']).path)
-            mimetype = mimetypes.guess_type(filename)[0]
-            image_object_path = os.path.join(spider.name, subdir, filename)
+            image_data['image_path'] = os.path.join(spider.name, subdir, filename)
+            images.append(image_data)
 
-            images.append(image_object_path)
-
-            # TODO: save image
+            image_local_path = os.path.join(self.basedir, 'comics', image_data['image_path'])
+            if not os.path.exists(image_local_path):
+                dirname = os.path.dirname(image_local_path)
+                if not os.path.exists(dirname):
+                    os.makedirs(dirname)
+                os.link(image_file_path, image_local_path)
 
         item['images'] = images
         return item
 
     def persist(self, item, spider):
-        tag = item['tag']
 
-        keys = ['url', 'title', 'annotation', 'images']
-        document = {'parsed_at': datetime.utcnow(), 'tag': tag}
-        for key in keys:
-            if key in item and item[key]:
-                document[key] = item[key]
+        document = {'tag': item['tag'], 'url': item['url'],
+                    'comicid': self.comicids[spider.name],
+                    'parsed_at': datetime.utcnow()}
 
         if spider.prevtag is not None:
             document['prevtag'] = spider.prevtag
 
-            # TODO: update nexttag in previous comic
+        with self.engine.begin() as connection:
 
-        # TODO: save comic data
+            result = connection.execute(self.archive.insert().values(**document))
+
+            archiveid = result.inserted_primary_key[0]
+
+            if 'title' in item and item['title']:
+                connection.execute(self.titles.insert().values(archiveid=archiveid, title=item['title']))
+            if 'annotation' in item and item['annotation']:
+                annotations = [{'archiveid':archiveid, 'annotation':annotation} for annotation in item['annotation']]
+                connection.execute(self.annotations.insert(), annotations)
+            if spider.prevtag is not None:
+                connection.execute(self.archive.update()
+                                   .where(self.archive.c.tag == spider.prevtag)
+                                   .values(nexttag=item['tag']))
+            for image in item['images']:
+                image['archiveid'] = archiveid
+                connection.execute(self.images.insert().values(**image))
 
         return document
 
@@ -115,8 +157,9 @@ class ComicPipeline():
             for key,val in item.items():
                 item[key] = str(val)
             spider.logger.error(f'Dropping item: {json.dumps(item)}')
-            raise scrapy.exceptions.DropItem(f'Validation Failure: {ae.args[0]}')
+            raise # we want to fail immediately when we find an invalid item
         except:
             for key,val in item.items():
                 item[key] = str(val)
             spider.logger.error(f'Error while processing item: {json.dumps(item)}', exc_info=True)
+            raise

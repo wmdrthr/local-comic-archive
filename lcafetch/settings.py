@@ -31,3 +31,5 @@ FILES_STORE  = os.path.join(BASEDIR, 'download/comics')
 HTTPCACHE_ENABLED = True
 HTTPCACHE_DIR = os.path.join(BASEDIR, 'httpcache')
 HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+DATABASE_URL = os.getenv('BRAGGE_DATABASE', f'sqlite:///{os.path.join(BASEDIR, "lca.db")}')
