@@ -6,6 +6,7 @@ class ComicSpider(scrapy.Spider):
 
         super().__init__(*args, **kwargs)
         self.options = set()
+        self.prevtag = None
 
     def start_requests(self):
 

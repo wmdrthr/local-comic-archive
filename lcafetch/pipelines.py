@@ -74,11 +74,16 @@ class ComicPipeline():
     def persist(self, item, spider):
         tag = item['tag']
 
-        keys = ['tag', 'url', 'title', 'annotation', 'images']
+        keys = ['url', 'title', 'annotation', 'images']
         document = {'parsed_at': datetime.utcnow(), 'tag': tag}
         for key in keys:
             if key in item and item[key]:
                 document[key] = item[key]
+
+        if spider.prevtag is not None:
+            document['prevtag'] = spider.prevtag
+
+            # TODO: update nexttag in previous comic
 
         # TODO: save comic data
 
@@ -86,9 +91,11 @@ class ComicPipeline():
 
     def process_item(self, item, spider):
         try:
-            self.validate(item, spider)
+            self.validate(item)
             item = self.upload_images(item, spider)
             document = self.persist(item, spider)
+
+            spider.prevtag = item['tag']
 
             return document
         except AssertionError as ae:
