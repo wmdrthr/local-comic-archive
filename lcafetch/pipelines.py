@@ -31,6 +31,8 @@ class ComicValidator():
 
 class ComicPipeline():
 
+    imagetypes = {'comic': 1, 'alternate': 2}
+
     def __init__(self, db_engine, basedir, files_store):
         self.basedir = basedir
         self.files_store = files_store
@@ -102,14 +104,17 @@ class ComicPipeline():
                     filename = str(tag) + extension
 
             image_data['image_path'] = os.path.join(spider.name, subdir, filename)
-            images.append(image_data)
-
             image_local_path = os.path.join(self.basedir, 'comics', image_data['image_path'])
             if not os.path.exists(image_local_path):
                 dirname = os.path.dirname(image_local_path)
                 if not os.path.exists(dirname):
                     os.makedirs(dirname)
                 os.link(image_file_path, image_local_path)
+
+            if 'alternate_image' in item and item['alternate_image'] == image['url']:
+                image['data']['imagetype'] = self.imagetypes['alternate']
+
+            images.append(image_data)
 
         item['images'] = images
         return item

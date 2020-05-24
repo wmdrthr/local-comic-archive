@@ -25,6 +25,7 @@ CREATE TABLE images (
        image_path text NOT NULL,
        width SMALLINT NOT NULL,
        height SMALLINT NOT NULL,
+       imagetype SMALLINT DEFAULT 1,
        original_filename text
 );
 
