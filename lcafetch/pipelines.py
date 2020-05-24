@@ -16,6 +16,9 @@ class ComicValidator():
             for key in ('tag', 'url'):
                 assert (key in item and item[key] is not None), f'item does not have {key}'
 
+            if 'captions' in item:
+                assert len(item['captions']) > 0, 'missing captions'
+
             assert len(item['file_urls']) > 0, 'item does not have any image URLs'
             for url in item['file_urls']:
                 assert len(url) > 0, 'empty image URL'
@@ -92,6 +95,10 @@ class ComicPipeline():
             with open(image_file_path, 'rb') as f:
                 with Image.open(f) as img:
                     image_data['width'], image_data['height'] = img.size
+
+            if 'captions' in item and index < len(item['captions']) and\
+               item['captions'][index] is not None:
+                image_data['caption'] = item['captions'][index]
 
             if (str(tag) not in filename or 'rename_images' in spider.options) and\
                'dont_rename_images' not in spider.options:

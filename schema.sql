@@ -26,7 +26,8 @@ CREATE TABLE images (
        width SMALLINT NOT NULL,
        height SMALLINT NOT NULL,
        imagetype SMALLINT DEFAULT 1,
-       original_filename text
+       caption TEXT,
+       original_filename TEXT
 );
 
 CREATE INDEX images_archiveid_index ON images (archiveid);
