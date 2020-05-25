@@ -58,3 +58,4 @@ INSERT INTO comics (nickname, name) VALUES ('reallife', 'Real Life Comics');
 INSERT INTO comics (nickname, name) VALUES ('eightbit', '8-Bit Theater');
 INSERT INTO comics (nickname, name) VALUES ('xkcd', 'XKCD');
 INSERT INTO comics (nickname, name) VALUES ('bruno', 'Bruno the Bandit');
+INSERT INTO comics (nickname, name) VALUES ('freefall', 'Freefall');
