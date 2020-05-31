@@ -61,3 +61,4 @@ INSERT INTO comics (nickname, name) VALUES ('bruno', 'Bruno the Bandit');
 INSERT INTO comics (nickname, name) VALUES ('freefall', 'Freefall');
 INSERT INTO comics (nickname, name) VALUES ('sheldon', 'Sheldon');
 INSERT INTO comics (nickname, name) VALUES ('irregular', 'Irregular Webcomic');
+INSERT INTO comics (nickname, name) VALUES ('concerned', 'Concerned: The Half-Life and Death of Gordon Frohman');
