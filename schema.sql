@@ -60,3 +60,4 @@ INSERT INTO comics (nickname, name) VALUES ('xkcd', 'XKCD');
 INSERT INTO comics (nickname, name) VALUES ('bruno', 'Bruno the Bandit');
 INSERT INTO comics (nickname, name) VALUES ('freefall', 'Freefall');
 INSERT INTO comics (nickname, name) VALUES ('sheldon', 'Sheldon');
+INSERT INTO comics (nickname, name) VALUES ('irregular', 'Irregular Webcomic');
