@@ -34,7 +34,7 @@ class ComicValidator():
 
 class ComicPipeline():
 
-    imagetypes = {'comic': 1, 'alternate': 2}
+    imagetypes = {'comic': 1, 'alternate': 2, 'annotation': 3}
 
     def __init__(self, db_engine, basedir, files_store):
         self.basedir = basedir
@@ -100,18 +100,22 @@ class ComicPipeline():
                item['captions'][index] is not None:
                 image_data['caption'] = item['captions'][index]
 
-            if (str(tag) not in filename or 'rename_images' in spider.options) and\
-               'dont_rename_images' not in spider.options:
+            if 'annotation_images' in item and image['url'] in item['annotation_images']:
+                image_data['image_path'] = os.path.join('annotations', str(tag), filename)
+            else:
+                if (str(tag) not in filename or 'rename_images' in spider.options) and\
+                   'dont_rename_images' not in spider.options:
 
-                image_data['original_filename'] = filename
-                extension = os.path.splitext(filename)[1]
-                if len(item['files']) > 1:
-                    filename = str(tag) + string.ascii_lowercase[index] + extension
-                else:
-                    filename = str(tag) + extension
+                    image_data['original_filename'] = filename
+                    extension = os.path.splitext(filename)[1]
+                    if len(item['files']) > 1:
+                        filename = str(tag) + string.ascii_lowercase[index] + extension
+                    else:
+                        filename = str(tag) + extension
 
-            image_data['image_path'] = os.path.join(spider.name, subdir, filename)
-            image_local_path = os.path.join(self.basedir, 'comics', image_data['image_path'])
+                image_data['image_path'] = os.path.join(subdir, filename)
+
+            image_local_path = os.path.join(self.basedir, 'comics', spider.name, image_data['image_path'])
             if not os.path.exists(image_local_path):
                 dirname = os.path.dirname(image_local_path)
                 if not os.path.exists(dirname):
@@ -119,7 +123,9 @@ class ComicPipeline():
                 os.link(image_file_path, image_local_path)
 
             if 'alternate_image' in item and item['alternate_image'] == image['url']:
-                image['data']['imagetype'] = self.imagetypes['alternate']
+                image_data['imagetype'] = self.imagetypes['alternate']
+            elif 'annotation_images' in item and image['url'] in item['annotation_images']:
+                image_data['imagetype'] = self.imagetypes['annotation']
 
             images.append(image_data)
 
