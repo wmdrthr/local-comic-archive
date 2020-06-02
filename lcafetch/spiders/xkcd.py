@@ -1,6 +1,5 @@
 from urllib.parse import urljoin, urlparse
 import html
-from datetime import datetime
 
 import scrapy
 
