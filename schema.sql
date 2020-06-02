@@ -67,3 +67,4 @@ INSERT INTO comics (nickname, name) VALUES ('orderofthestick', 'Order of the Sti
 INSERT INTO comics (nickname, name) VALUES ('scarygoround', 'Scary Go Round');
 INSERT INTO comics (nickname, name) VALUES ('questionablecontent', 'Questionable Content');
 INSERT INTO comics (nickname, name) VALUES ('pennyarcade', 'Penny Arcade');
+INSERT INTO comics (nickname, name) VALUES ('megatokyo', 'Megatokyo');
