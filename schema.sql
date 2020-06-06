@@ -76,3 +76,4 @@ INSERT INTO comics (nickname, name) VALUES ('gunnerkrigg', 'Gunnerkrigg Court');
 INSERT INTO comics (nickname, name) VALUES ('wondermark', 'Wondermark');
 INSERT INTO comics (nickname, name) VALUES ('pvp', 'Player vs. Player');
 INSERT INTO comics (nickname, name) VALUES ('copper', 'Copper');
+INSERT INTO comics (nickname, name) VALUES ('gws', 'Girls With Slingshots');
