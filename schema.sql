@@ -79,3 +79,5 @@ INSERT INTO comics (nickname, name) VALUES ('copper', 'Copper');
 INSERT INTO comics (nickname, name) VALUES ('gws', 'Girls With Slingshots');
 INSERT INTO comics (nickname, name) VALUES ('dmrings', 'DM of the Rings');
 INSERT INTO comics (nickname, name) VALUES ('wastedtalent', 'Wasted Talent');
+INSERT INTO comics (nickname, name) VALUES ('sequentialart', 'Sequential Art');
+
