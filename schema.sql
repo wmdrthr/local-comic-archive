@@ -82,3 +82,4 @@ INSERT INTO comics (nickname, name) VALUES ('wastedtalent', 'Wasted Talent');
 INSERT INTO comics (nickname, name) VALUES ('sequentialart', 'Sequential Art');
 INSERT INTO comics (nickname, name) VALUES ('smbc', 'Saturday Morning Breakfast Cereal');
 INSERT INTO comics (nickname, name) VALUES ('foxhound', 'Last Days of Foxhound');
+INSERT INTO comics (nickname, name) VALUES ('digger', 'Digger');
