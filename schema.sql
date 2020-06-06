@@ -72,3 +72,4 @@ INSERT INTO comics (nickname, name) VALUES ('minus', 'Minus Comic');
 INSERT INTO comics (nickname, name) VALUES ('dresdencodak', 'Dresden Codak');
 INSERT INTO comics (nickname, name) VALUES ('dinosaur', 'Dinosaur Comics');
 INSERT INTO comics (nickname, name) VALUES ('uvod', 'Unspeakable Vault of Doom');
+INSERT INTO comics (nickname, name) VALUES ('gunnerkrigg', 'Gunnerkrigg Court');
