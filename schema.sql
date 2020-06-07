@@ -86,3 +86,4 @@ INSERT INTO comics (nickname, name) VALUES ('digger', 'Digger');
 INSERT INTO comics (nickname, name) VALUES ('lackadaisy', 'Lackadaisy');
 INSERT INTO comics (nickname, name) VALUES ('lackadaisy.gallery', 'Lackadaisy Gallery');
 INSERT INTO comics (nickname, name) VALUES ('girlgenius', 'Girl Genius');
+INSERT INTO comics (nickname, name) VALUES ('badmachinery', 'Bad Machinery');
