@@ -90,3 +90,4 @@ INSERT INTO comics (nickname, name) VALUES ('badmachinery', 'Bad Machinery');
 INSERT INTO comics (nickname, name) VALUES ('bobbins', 'Bobbins');
 INSERT INTO comics (nickname, name) VALUES ('newbobbins', 'New Bobbins');
 INSERT INTO comics (nickname, name) VALUES ('bobbins.horse', 'Bobbins Horse');
+INSERT INTO comics (nickname, name) VALUES ('blastwave', 'Gone With The Blastwave');
