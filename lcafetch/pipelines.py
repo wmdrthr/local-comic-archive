@@ -78,12 +78,13 @@ class ComicPipeline():
     def upload_images(self, item, spider):
         tag = item['tag']
 
-        if tag > 190000:
-            subdir = str(tag)[:4]
-        elif 'no_subdirs' in spider.options:
+        if 'no_subdirs' in spider.options:
             subdir = ''
         else:
-            subdir = '{:04d}'.format(100 * (tag // 100))
+            if tag > 190000:
+                subdir = str(tag)[:4]
+            else:
+                subdir = '{:04d}'.format(100 * (tag // 100))
 
         images = []
         for index, image in enumerate(item['files']):
@@ -140,6 +141,8 @@ class ComicPipeline():
 
         if spider.prevtag is not None:
             document['prevtag'] = spider.prevtag
+        if 'slug' in item and item['slug']:
+            document['slug'] = item['slug']
 
         with self.engine.begin() as connection:
 

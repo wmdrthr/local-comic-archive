@@ -8,21 +8,22 @@ CREATE TABLE comics (
 CREATE TABLE archive (
        id SERIAL PRIMARY KEY,
        comicid INTEGER REFERENCES comics(id),
-       tag INTEGER NOT NULL UNIQUE,
+       tag INTEGER NOT NULL,
        nexttag INTEGER REFERENCES archive(tag),
        prevtag INTEGER REFERENCES archive(tag),
+       slug VARCHAR(32),
        url TEXT NOT NULL,
-       parsed_at TIMESTAMP,
-       UNIQUE(comicid, tag)
+       parsed_at TIMESTAMP
 );
 
-CREATE INDEX archive_tag_index ON archive (comicid, tag);
+CREATE UNIQUE INDEX archive_tag_index ON archive (comicid, tag);
+CREATE UNIQUE INDEX archive_slug_index ON archive (comicid, slug);
 CREATE INDEX archive_history_index ON archive (comicid, parsed_at);
 
 CREATE TABLE images (
        id SERIAL PRIMARY KEY,
        archiveid INTEGER REFERENCES archive(id),
-       image_path text NOT NULL,
+       image_path TEXT NOT NULL,
        width SMALLINT NOT NULL,
        height SMALLINT NOT NULL,
        imagetype SMALLINT DEFAULT 1,
@@ -94,3 +95,4 @@ INSERT INTO comics (nickname, name) VALUES ('blastwave', 'Gone With The Blastwav
 INSERT INTO comics (nickname, name) VALUES ('caseyandandy', 'Casey and Andy');
 INSERT INTO comics (nickname, name) VALUES ('nodwick', 'Nodwick');
 INSERT INTO comics (nickname, name) VALUES ('nerdity', 'Full Frontal Nerdity');
+INSERT INTO comics (nickname, name) VALUES ('oglaf', 'Oglaf');
