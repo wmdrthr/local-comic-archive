@@ -80,6 +80,8 @@ class ComicPipeline():
 
         if 'no_subdirs' in spider.options:
             subdir = ''
+        elif 'subdir' in item:
+            subdir = item['subdir']
         else:
             if tag > 190000:
                 subdir = str(tag)[:4]
