@@ -5,7 +5,7 @@ from urllib.parse import urlparse
 from datetime import datetime
 
 import scrapy
-from sqlalchemy import create_engine, Table, MetaData, select
+from sqlalchemy import create_engine, Table, MetaData
 from PIL import Image
 
 class ComicValidator():
@@ -36,36 +36,17 @@ class ComicPipeline():
 
     imagetypes = {'comic': 1, 'alternate': 2, 'annotation': 3}
 
-    def __init__(self, db_engine, basedir, files_store):
+    def __init__(self, basedir, files_store):
         self.basedir = basedir
         self.files_store = files_store
-
-        self.engine = db_engine
-        self._initialize_database(self.engine)
 
     @classmethod
     def from_crawler(cls, crawler):
 
-        return cls(
-            db_engine = create_engine(crawler.settings.get('DATABASE_URL')),
+        return cls (
             basedir   = crawler.settings.get('BASEDIR'),
             files_store  = crawler.settings.get('FILES_STORE'),
         )
-
-    def _initialize_database(self, engine):
-
-        metadata = MetaData(bind=engine)
-
-        self.comicids = {}
-        with engine.connect() as connection:
-            result = connection.execute('SELECT * FROM comics')
-            for row in result:
-                self.comicids[row['nickname']] = row['id']
-
-        self.archive = Table('archive', metadata, autoload=True)
-        self.images = Table('images', metadata, autoload=True)
-        self.titles = Table('titles', metadata, autoload=True)
-        self.annotations = Table('annotations', metadata, autoload=True)
 
     def validate(self, item):
 
@@ -138,7 +119,7 @@ class ComicPipeline():
     def persist(self, item, spider):
 
         document = {'tag': item['tag'], 'url': item['url'],
-                    'comicid': self.comicids[spider.name],
+                    'comicid': spider.comicid,
                     'parsed_at': datetime.utcnow()}
 
         if spider.prevtag is not None:
@@ -146,24 +127,24 @@ class ComicPipeline():
         if 'slug' in item and item['slug']:
             document['slug'] = item['slug']
 
-        with self.engine.begin() as connection:
+        with spider.engine.begin() as connection:
 
-            result = connection.execute(self.archive.insert().values(**document))
+            result = connection.execute(spider.archive.insert().values(**document))
 
             archiveid = result.inserted_primary_key[0]
 
             if 'title' in item and item['title']:
-                connection.execute(self.titles.insert().values(archiveid=archiveid, title=item['title']))
+                connection.execute(spider.titles.insert().values(archiveid=archiveid, title=item['title']))
             if 'annotation' in item and item['annotation']:
                 annotations = [{'archiveid':archiveid, 'annotation':annotation} for annotation in item['annotation']]
-                connection.execute(self.annotations.insert(), annotations)
+                connection.execute(spider.annotations.insert(), annotations)
             if spider.prevtag is not None:
-                connection.execute(self.archive.update()
-                                   .where(self.archive.c.tag == spider.prevtag)
+                connection.execute(spider.archive.update()
+                                   .where(spider.archive.c.tag == spider.prevtag)
                                    .values(nexttag=item['tag']))
             for image in item['images']:
                 image['archiveid'] = archiveid
-                connection.execute(self.images.insert().values(**image))
+                connection.execute(spider.images.insert().values(**image))
 
         return document
 
