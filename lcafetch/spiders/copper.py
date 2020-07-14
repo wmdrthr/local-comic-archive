@@ -9,6 +9,7 @@ import lcafetch.spiders
 class Copper(lcafetch.spiders.ComicSpider):
 
     name = 'copper'
+    comic_name = 'Copper'
     start_url = 'https://www.boltcityproductions.com/copper'
 
     def __init__(self, *args, **kwargs):

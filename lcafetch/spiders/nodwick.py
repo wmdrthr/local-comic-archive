@@ -7,6 +7,7 @@ import lcafetch.spiders
 class Nodwick(lcafetch.spiders.ComicSpider):
 
     name = 'nodwick'
+    comic_name = 'Nodwick'
     start_url = 'http://comic.nodwick.com/?comic=2001-01-01'
 
     def parse_next(self, response):
@@ -35,6 +36,7 @@ class Nodwick(lcafetch.spiders.ComicSpider):
 class Nerdity(Nodwick):
 
     name = 'nerdity'
+    comic_name = 'Full Frontal Nerdity'
     start_url = 'http://ffn.nodwick.com/?p=6'
 
     def parse_next(self, response):

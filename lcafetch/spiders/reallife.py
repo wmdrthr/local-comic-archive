@@ -7,6 +7,7 @@ import lcafetch.spiders
 class RealLife(lcafetch.spiders.ComicSpider):
 
     name = 'reallife'
+    comic_name = 'Real Life Comic'
     start_url = 'https://reallifecomics.com/comic.php/?comic=title-1'
 
     def parse_next(self, response):

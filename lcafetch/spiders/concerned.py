@@ -33,6 +33,7 @@ def process_annotation(tag, baseurl, annotation):
 class Concerned(lcafetch.spiders.ComicSpider):
 
     name = 'concerned'
+    comic_name = 'Concerned: The Half-Life and Death of Gordon Frohman'
     start_url = 'http://www.screencuisine.net/hlcomic/index.php?date=2005-05-01'
 
     def parse_next(self, response):

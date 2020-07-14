@@ -27,6 +27,7 @@ def process_annotation(annotation):
 class Exterminatus(lcafetch.spiders.ComicSpider):
 
     name = 'exterminatus'
+    comic_name = 'Exterminatus Now'
     start_url = 'http://exterminatusnow.co.uk/2003-09-29/comic/meet-the-crew/dirty-harry/'
 
     def parse_next(self, response):

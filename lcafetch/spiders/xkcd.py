@@ -8,6 +8,7 @@ import lcafetch.spiders
 class XKCD(lcafetch.spiders.ComicSpider):
 
     name = 'xkcd'
+    comic_name = 'XKCD'
     start_url = 'https://xkcd.com/1/'
 
     def __init__(self, *args, **kwargs):

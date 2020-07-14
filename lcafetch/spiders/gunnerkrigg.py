@@ -8,6 +8,7 @@ import lcafetch.spiders
 class Gunnerkrigg(lcafetch.spiders.ComicSpider):
 
     name = 'gunnerkrigg'
+    comic_name = 'Gunnerkrigg Court'
     start_url = 'https://www.gunnerkrigg.com/?p=1'
 
     def parse_next(self, response):

@@ -8,6 +8,7 @@ import lcafetch.spiders
 class Bobbins(lcafetch.spiders.ComicSpider):
 
     name = 'bobbins'
+    comic_name = 'Bobbins'
     start_url = 'http://www.scarygoround.com/bobbins/index-archive.php?date=19980921'
     last_url = 'http://www.scarygoround.com/bobbins/index-archive.php?date=20020517'
 
@@ -38,6 +39,7 @@ class Bobbins(lcafetch.spiders.ComicSpider):
 class NewBobbins(Bobbins):
 
     name = 'newbobbins'
+    comic_name = 'New Bobbins'
     start_url = 'http://www.scarygoround.com/bobbins/index.php?date=20131101'
     last_url = 'http://www.scarygoround.com/bobbins/index.php?date=20171229'
 
@@ -45,6 +47,7 @@ class NewBobbins(Bobbins):
 class BobbinsHorse(lcafetch.spiders.ComicSpider):
 
     name = 'bobbins.horse'
+    comic_name = 'Bobbins Horse'
     start_url = 'https://bobbins.horse/comic/2013-08-30/'
 
     def parse_next(self, response):

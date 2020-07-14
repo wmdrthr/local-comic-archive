@@ -21,6 +21,7 @@ def clean_footnote(footnote):
 class Shlock(lcafetch.spiders.ComicSpider):
 
     name = 'schlock'
+    comic_name = 'Schlock Mercenary'
     start_url = 'https://www.schlockmercenary.com/2000-06-12'
 
     def parse_next(self, response):

@@ -28,6 +28,7 @@ def process_annotation(annotation):
 class CaseyAndAndy(lcafetch.spiders.ComicSpider):
 
     name = 'caseyandandy'
+    comic_name = 'Casey and Andy'
     start_url = 'http://www.galactanet.com/comic/view.php?strip=1'
 
     def parse_next(self, response):

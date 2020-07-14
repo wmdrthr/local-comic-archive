@@ -7,6 +7,7 @@ import lcafetch.spiders
 class FreeFall(lcafetch.spiders.ComicSpider):
 
     name = 'freefall'
+    comic_name = 'Freefall'
     start_url = 'http://freefall.purrsia.com/ff100/fv00001.htm'
     color = False
 

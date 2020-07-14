@@ -7,6 +7,7 @@ import lcafetch.spiders
 class ScaryGoRound(lcafetch.spiders.ComicSpider):
 
     name = 'scarygoround'
+    comic_name = 'Scary Go Round'
     start_url = 'http://www.scarygoround.com/sgr/ar.php?date=20020604'
 
     def parse_next(self, response):

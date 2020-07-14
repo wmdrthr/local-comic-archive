@@ -8,6 +8,7 @@ import lcafetch.spiders
 class Foxhound(lcafetch.spiders.ComicSpider):
 
     name = 'foxhound'
+    comic_name = 'Last Days of Foxhound'
     start_url = 'http://www.doctorshrugs.com/foxhound/comic.php?id=1'
     titles = {}
 

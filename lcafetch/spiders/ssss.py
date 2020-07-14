@@ -33,6 +33,7 @@ def process_annotation(baseurl, annotation):
 class SSSS(lcafetch.spiders.ComicSpider):
 
     name = 'ssss'
+    comic_name = 'Stand Still, Stay Silent'
     start_url = 'http://sssscomic.com/comic.php?page=1'
 
     def parse_next(self, response):
@@ -75,6 +76,7 @@ class SSSS(lcafetch.spiders.ComicSpider):
 class RedTail(lcafetch.spiders.ComicSpider):
 
     name = 'redtail'
+    comic_name = "A Redtail's Dream"
     start_url = 'http://www.minnasundberg.fi/comic/page00.php'
 
     def parse_next(self, response):

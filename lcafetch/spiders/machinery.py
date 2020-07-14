@@ -28,6 +28,7 @@ def process_annotation(annotation):
 class BadMachinery(lcafetch.spiders.ComicSpider):
 
     name = 'badmachinery'
+    comic_name = 'Bad Machinery'
     start_url = 'http://scarygoround.com/badmachinery/index.php?date=20090921'
 
     def parse_next(self, response):

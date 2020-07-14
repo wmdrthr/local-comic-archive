@@ -7,6 +7,7 @@ import lcafetch.spiders
 class Sequential(lcafetch.spiders.ComicSpider):
 
     name = 'sequentialart'
+    comic_name = 'Sequential Art'
     start_url = 'https://www.collectedcurios.com/sequentialart.php?s=1'
 
     def parse_next(self, response):

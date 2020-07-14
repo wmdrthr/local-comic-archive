@@ -7,6 +7,7 @@ import lcafetch.spiders
 class Flintlocke(lcafetch.spiders.ComicSpider):
 
     name = 'flintlocke'
+    comic_name = "Flintlocke's Guide to Azeroth"
     start_url = 'http://flintlocke.thecomicseries.com/comics/1'
 
     def __init__(self, *args, **kwargs):

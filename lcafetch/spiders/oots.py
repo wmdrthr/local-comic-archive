@@ -7,6 +7,7 @@ import lcafetch.spiders
 class OOTS(lcafetch.spiders.ComicSpider):
 
     name = 'orderofthestick'
+    comic_name = 'Order of the Stick'
     start_url = 'https://www.giantitp.com/comics/oots0001.html'
 
     def parse_next(self, response):

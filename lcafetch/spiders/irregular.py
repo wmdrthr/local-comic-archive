@@ -42,6 +42,7 @@ def process_annotation(tag, baseurl, annotation):
 class Irregular(lcafetch.spiders.ComicSpider):
 
     name = 'irregular'
+    comic_name = 'Irregular Webcomic'
     start_url = 'https://www.irregularwebcomic.net/1.html'
 
     def parse_next(self, response):

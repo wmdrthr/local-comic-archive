@@ -8,6 +8,7 @@ import lcafetch.spiders
 class SMBC(lcafetch.spiders.ComicSpider):
 
     name = 'smbc'
+    comic_name = 'Saturday Morning Breakfast Cereal'
     start_url = 'https://www.smbc-comics.com/comic/2002-09-05'
     date_pattern = re.compile(r'\d{4}-\d{2}-\d{2}')
 

@@ -7,6 +7,7 @@ import lcafetch.spiders
 class Digger(lcafetch.spiders.ComicSpider):
 
     name = 'digger'
+    comic_name = 'Digger'
     start_url = 'https://diggercomic.com/blog/2007/02/01/wombat1-gnorf/'
 
     def parse_next(self, response):

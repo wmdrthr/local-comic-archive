@@ -5,6 +5,7 @@ import lcafetch.spiders
 class EightBit(lcafetch.spiders.ComicSpider):
 
     name = 'eightbit'
+    comic_name = '8-Bit Theater'
     start_url = 'https://www.nuklearpower.com/2001/03/02/episode-001-were-going-where/'
 
     def parse_next(self, response):

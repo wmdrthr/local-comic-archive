@@ -7,6 +7,7 @@ import lcafetch.spiders
 class Blastwave(lcafetch.spiders.ComicSpider):
 
     name = 'blastwave'
+    comic_name = 'Gone With The BlastWave'
     start_url = 'http://www.blastwave-comic.com/index.php?p=comic&nro=1'
 
     def __init__(self, *args, **kwargs):

@@ -8,6 +8,7 @@ import lcafetch.spiders
 class Failures(lcafetch.spiders.ComicSpider):
 
     name = 'failures'
+    comic_name = 'Between Failures'
     start_url = 'https://betweenfailures.com/comics1/every-story-has-to-start-somewhere'
 
     def parse_next(self, response):

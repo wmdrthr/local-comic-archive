@@ -7,6 +7,7 @@ import lcafetch.spiders
 class DresdenCodak(lcafetch.spiders.ComicSpider):
 
     name = 'dresdencodak'
+    comic_name = 'Dresden Codak'
     start_url = 'http://dresdencodak.com/2005/06/08/the-tomorrow-man/'
 
     def parse_next(self, response):

@@ -7,6 +7,7 @@ import lcafetch.spiders
 class Bruno(lcafetch.spiders.ComicSpider):
 
     name = 'bruno'
+    comic_name = 'Bruno the Bandit'
     start_url = 'http://brunothebandit.com/d/19980720.html'
 
     def parse_next(self, response):

@@ -7,6 +7,7 @@ import lcafetch.spiders
 class WastedTalent(lcafetch.spiders.ComicSpider):
 
     name = 'wastedtalent'
+    comic_name = 'Wasted Talent'
     start_url = 'http://www.wastedtalent.ca/comic/anime-crack'
 
     def parse_next(self, response):

@@ -7,6 +7,7 @@ import lcafetch.spiders
 class QuestionableContent(lcafetch.spiders.ComicSpider):
 
     name = 'questionablecontent'
+    comic_name = 'Questionable Content'
     start_url = 'https://www.questionablecontent.net/view.php?comic=1'
 
     def parse_next(self, response):

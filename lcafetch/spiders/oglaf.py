@@ -7,6 +7,7 @@ import lcafetch.spiders
 class Oglaf(lcafetch.spiders.ComicSpider):
 
     name = 'oglaf'
+    comic_name = 'Oglaf'
     start_url = 'https://www.oglaf.com/cumsprite/'
 
     def __init__(self, *args, **kwargs):

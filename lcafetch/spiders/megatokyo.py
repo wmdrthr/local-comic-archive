@@ -9,6 +9,7 @@ import lcafetch.spiders
 class Megatokyo(lcafetch.spiders.ComicSpider):
 
     name = 'megatokyo'
+    comic_name = 'Megatokyo'
     start_url = 'https://megatokyo.com/strip/1'
     baseurl = 'http://www.megatokyo.com'
 

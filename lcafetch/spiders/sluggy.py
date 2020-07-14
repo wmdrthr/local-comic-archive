@@ -32,6 +32,7 @@ def process_annotation(annotation):
 class Sluggy(lcafetch.spiders.ComicSpider):
 
     name = 'sluggy'
+    comic_name = 'Sluggy Freelance'
     start_url = 'http://archives.sluggy.com/book.php?chapter=1'
 
     def parse_next(self, response):

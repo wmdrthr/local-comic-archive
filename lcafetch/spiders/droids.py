@@ -28,6 +28,7 @@ def process_annotation(annotation):
 class Droids(lcafetch.spiders.ComicSpider):
 
     name = 'droids'
+    comic_name = 'Darths and Droids'
     start_url = 'https://www.darthsanddroids.net/episodes/0001.html'
 
     alternate_links = [ 'https://darthsanddroids.net/wandsandwarts/episodes/0050.html',

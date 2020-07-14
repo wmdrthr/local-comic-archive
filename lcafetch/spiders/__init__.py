@@ -9,18 +9,36 @@ class ComicSpider(scrapy.Spider):
         self.options = set()
         self.prevtag = None
 
+    def _initialize_database(self):
+
+        self.engine = create_engine(self.crawler.settings.get('DATABASE_URL'))
+        metadata = MetaData(bind=self.engine)
+
+        self.comics = Table('comics', metadata, autoload=True)
+        self.archive = Table('archive', metadata, autoload=True)
+        self.images = Table('images', metadata, autoload=True)
+        self.titles = Table('titles', metadata, autoload=True)
+        self.annotations = Table('annotations', metadata, autoload=True)
+
+        with self.engine.begin() as connection:
+            result = connection.execute(select([self.comics.c.id])
+                                        .where(self.comics.c.nickname == self.name))
+            row = result.first()
+            if row is not None:
+                self.comicid = row['id']
+            else:
+                result = connection.execute(self.comics.insert().values(nickname=self.name,
+                                                                        name=self.comic_name))
+                self.comicid = result.inserted_primary_key[0]
+
     def start_requests(self):
 
-        engine = create_engine(self.crawler.settings.get('DATABASE_URL'))
-        metadata = MetaData(bind=engine)
-        comics = Table('comics', metadata, autoload=True)
-        archive = Table('archive', metadata, autoload=True)
+        self._initialize_database()
 
-        with engine.connect() as connection:
-            result = connection.execute(select([archive.c.tag, archive.c.url])
-                                        .select_from(archive.join(comics))
-                                        .where(comics.c.nickname == self.name)
-                                        .order_by(archive.c.parsed_at.desc())
+        with self.engine.connect() as connection:
+            result = connection.execute(select([self.archive.c.tag, self.archive.c.url])
+                                        .where(self.archive.c.comicid == self.comicid)
+                                        .order_by(self.archive.c.parsed_at.desc())
                                         .limit(1))
             row = result.first()
             if row is not None:

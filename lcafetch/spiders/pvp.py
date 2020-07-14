@@ -9,6 +9,7 @@ import lcafetch.spiders
 class PVP(lcafetch.spiders.ComicSpider):
 
     name = 'pvp'
+    comic_name = 'Player vs. Player'
     start_url = 'http://pvponline.com/comic/mon-may-04'
 
     def __init__(self, *args, **kwargs):

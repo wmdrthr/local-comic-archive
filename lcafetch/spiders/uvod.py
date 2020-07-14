@@ -7,6 +7,7 @@ import lcafetch.spiders
 class UVOD(lcafetch.spiders.ComicSpider):
 
     name = 'uvod'
+    comic_name = 'Unspeakable Vault of Doom'
     start_url = 'http://www.goominet.com/unspeakable-vault/vault/1/'
     baseurl = 'http://www.goominet.com/'
 

@@ -7,6 +7,7 @@ import lcafetch.spiders
 class PennyArcade(lcafetch.spiders.ComicSpider):
 
     name = 'pennyarcade'
+    comic_name = 'Penny Arcade'
     start_url = 'https://www.penny-arcade.com/comic/1998/11/18'
 
     def parse_next(self, response):

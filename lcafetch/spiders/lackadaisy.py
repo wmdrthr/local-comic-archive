@@ -7,6 +7,7 @@ import lcafetch.spiders
 class Lackadaisy(lcafetch.spiders.ComicSpider):
 
     name = 'lackadaisy'
+    comic_name = 'Lackadaisy'
     start_url = 'https://www.lackadaisycats.com/comic.php?comicid=1'
     tag_param = 'comicid'
 
@@ -47,5 +48,6 @@ class Lackadaisy(lcafetch.spiders.ComicSpider):
 class LackadaisyGallery(Lackadaisy):
 
     name = 'lackadaisy.gallery'
+    comic_name = 'Lackadaisy Gallery'
     start_url = 'https://www.lackadaisycats.com/exhibit.php?exhibitid=1'
     tag_param = 'exhibitid'

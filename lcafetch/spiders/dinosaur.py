@@ -9,6 +9,7 @@ import lcafetch.spiders
 class Dinosaur(lcafetch.spiders.ComicSpider):
 
     name = 'dinosaur'
+    comic_name = 'Dinosaur Comics'
     start_url = 'http://www.qwantz.com/index.php?comic=1'
 
     def __init__(self, *args, **kwargs):

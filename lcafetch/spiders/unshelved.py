@@ -7,6 +7,7 @@ import lcafetch.spiders
 class Unshelved(lcafetch.spiders.ComicSpider):
 
     name = 'unshelved'
+    comic_name = 'Unshelved'
     start_url = 'http://www.unshelved.com/2002-2-16'
 
     def parse_next(self, response):

@@ -7,6 +7,7 @@ import lcafetch.spiders
 class UserFriendly(lcafetch.spiders.ComicSpider):
 
     name = 'userfriendly'
+    comic_name = 'User Friendly'
     start_url = 'http://ars.userfriendly.org/cartoons/?id=19971117&mode=classic'
 
     def parse_next(self, response):

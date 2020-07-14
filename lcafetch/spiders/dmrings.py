@@ -25,6 +25,7 @@ def process_annotation(baseurl, annotation):
 class DMRings(lcafetch.spiders.ComicSpider):
 
     name = 'dmrings'
+    comic_name = 'DM of the Rings'
     start_url = 'https://www.shamusyoung.com/twentysidedtale/?p=612'
 
     def parse_next(self, response):

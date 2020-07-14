@@ -33,6 +33,7 @@ def process_annotation(tag, baseurl, annotation):
 class Narbonic(lcafetch.spiders.ComicSpider):
 
     name = 'narbonic'
+    comic_name = 'Narbonic'
     start_url = 'http://narbonic.com/comic/july-31-august-5-2000/'
 
     def parse_next(self, response):

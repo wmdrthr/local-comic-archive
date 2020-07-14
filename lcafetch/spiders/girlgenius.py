@@ -7,6 +7,7 @@ import lcafetch.spiders
 class GirlGenius(lcafetch.spiders.ComicSpider):
 
     name = 'girlgenius'
+    comic_name = 'Girl Genius'
     start_url = 'http://www.girlgeniusonline.com/comic.php?date=20021104'
 
     def parse_next(self, response):

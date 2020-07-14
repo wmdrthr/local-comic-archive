@@ -5,6 +5,7 @@ import lcafetch.spiders
 class GWS(lcafetch.spiders.ComicSpider):
 
     name = 'gws'
+    comic_name = 'Girls with Slingshots'
     start_url = 'https://www.girlswithslingshots.com/comic/gws1/'
 
     def parse_next(self, response):

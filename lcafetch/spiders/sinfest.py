@@ -7,6 +7,7 @@ import lcafetch.spiders
 class Sinfest(lcafetch.spiders.ComicSpider):
 
     name = 'sinfest'
+    comic_name = 'Sinfest'
     start_url = 'https://www.sinfest.net/view.php?date=2000-01-17'
 
     def parse_next(self, response):

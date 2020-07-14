@@ -8,6 +8,7 @@ import lcafetch.spiders
 class Wondermark(lcafetch.spiders.ComicSpider):
 
     name = 'wondermark'
+    comi_name = 'Wondermark'
     start_url = 'http://wondermark.com/001/'
 
     def parse_next(self, response):

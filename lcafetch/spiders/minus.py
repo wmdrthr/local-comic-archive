@@ -8,6 +8,7 @@ import lcafetch.spiders
 class Minus(lcafetch.spiders.ComicSpider):
 
     name = 'minus'
+    comic_name = 'Minus Comic'
     start_url = 'https://kiwisbybeat.netlify.app/minus1.html'
 
     def start_requests(self):
